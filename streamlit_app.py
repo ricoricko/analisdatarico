@@ -28,7 +28,7 @@ plt.show()
 
 
 
-page = st.sidebar.radio("Page:", ["Visualisasi", "EDA", "RFM"])
+page = st.sidebar.radio("Page:", ["Visualisasi", "EDA", "RFM","Pertanyaan"])
 
 
 
@@ -124,4 +124,38 @@ elif page == "RFM":
     ax3.set_xlabel('Recency')
     ax3.set_ylabel('Frequency')
     st.pyplot(fig3)
-
+    
+elif page == "Pertanyaan":
+    st.title("Pertanyaan:")
+    st.write("## 1.Kapan waktu paling banyak orang menyewa sepeda baik hari jam maupun musim?")
+    
+    st.write("## Visualisasi Jumlah Peminjaman Sepeda per Jam")
+    fig3, ax3 = plt.subplots(figsize=(10, 6))
+    data2.groupby('hr')['cnt'].sum().plot(kind='line', ax=ax3, marker='o', color='green')
+    ax3.set_title('Total Peminjaman Sepeda per Jam')
+    ax3.set_xlabel('Jam')
+    ax3.set_ylabel('Jumlah Peminjaman')
+    st.pyplot(fig3)
+    
+    st.write("## Visualisasi Jumlah Peminjaman Sepeda per Hari dalam Seminggu")
+    fig2, ax2 = plt.subplots(figsize=(10, 6))
+    data.groupby('weekday')['cnt'].sum().plot(kind='bar', ax=ax2, color='skyblue')
+    ax2.set_title('Total Peminjaman Sepeda per Hari dalam Seminggu')
+    ax2.set_xlabel('Hari dalam Seminggu')
+    ax2.set_ylabel('Jumlah Peminjaman')
+    ax2.set_xticklabels(['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'], rotation=0)
+    st.pyplot(fig2)
+    
+    
+    
+    st.write("## 2.Faktor apa yang paling berpengaruh terhadap jumlah sewa sepeda?")
+    
+    st.write("## Heatmap Korelasi")
+    fig2, ax2 = plt.subplots(figsize=(10, 6))
+    correlation = data.corr()
+    sns.heatmap(correlation, annot=True, fmt=".2f", cmap='coolwarm', ax=ax2)
+    st.pyplot(fig2)
+    
+    
+    
+    
